@@ -1,7 +1,6 @@
 package com.example.android.apis.nfc;
 
 import android.app.Activity;
-import android.app.PendingIntent;
 import android.content.Intent;
 import android.nfc.NfcAdapter;
 import android.nfc.Tag;
@@ -25,7 +24,6 @@ import java.util.concurrent.Executors;
 public class ForegroundReader extends Activity implements NfcAdapter.ReaderCallback {
     private NfcAdapter mAdapter;
     private NfcReader nfcReader;
-    private PendingIntent mPendingIntent;
     private TextView mText;
     private List<Long> timeList = Collections.synchronizedList(new ArrayList<>());
     private long startTime = System.currentTimeMillis();
@@ -44,15 +42,7 @@ public class ForegroundReader extends Activity implements NfcAdapter.ReaderCallb
         mText = (TextView) findViewById(R.id.text);
         mText.setText("Scan a tag");
         mText.setMovementMethod(new ScrollingMovementMethod());
-
         mAdapter = NfcAdapter.getDefaultAdapter(this);
-
-        // Create a generic PendingIntent that will be deliver to this activity. The NFC stack
-        // will fill in the intent with the details of the discovered tag before delivering to
-        // this activity.
-        mPendingIntent = PendingIntent.getActivity(this, 0,
-                new Intent(this, getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
-        Log.d("ForegroundDispatch", "Tag dispatch start time - Tag dispatch end time = Difference ,  Average time ");
     }
 
     @Override
